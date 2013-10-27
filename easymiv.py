@@ -28,43 +28,30 @@ from PIL.ImageTk import PhotoImage
 
 class Config:
     def __init__(self):
-        self.detectImages = True
+        self.detect_images = True
         self.loop = True
-        self.autoSlideTime = 3000
-        self.autoSlideAutoStart = False
+        self.auto_slide_time = 3000
+        self.auto_slide_auto_start = False
         
-# http://code.activestate.com/recipes/135435-sort-a-string-using-numeric-order/
-def stringSplitByNumbers(x):
-    r = re.compile('(\d+)')
-    l = r.split(x.lower())
-    return [toNumber(y) if y.isdigit() else y for y in l]
-
-def toNumber(y):
-    try:
-        return int(y)
-    except:
-        return long(y) # Python 2
-
 class SlideShow:
-    def __init__(self, inputPath):
-        self.currentIndex = -1;
-        self.startCurrentIndex = -1;
-        self.inputPath = inputPath
-        self.inputDir = self.inputPath
-        inputFile = None
-        if os.path.isfile(self.inputPath):
-            self.inputDir,inputFile = os.path.split(self.inputPath)
-        self.currentIndex = 0
-        allData = os.listdir(self.inputDir)
-        if (allData == None) or (len(allData) <= 0):
+    def __init__(self, input_path):
+        self.current_index = -1;
+        self.startcurrent_index = -1;
+        self.input_path = input_path
+        self.input_dir = self.input_path
+        input_file = None
+        if os.path.isfile(self.input_path):
+            self.input_dir,input_file = os.path.split(self.input_path)
+        self.current_index = 0
+        all_data = sorted(os.listdir(self.input_dir))
+        if (all_data == None) or (len(all_data) <= 0):
             return;
-        allData = sorted(allData, key=stringSplitByNumbers)
         self.files = []
-        for f in allData:
-            tf = os.path.join(self.inputDir, f)
+        for f in all_data:
+            tf = os.path.join(self.input_dir, f)
             if os.path.isfile(tf):
                 canAdd = True
-                if config.detectImages:
+                if config.detect_images:
                     try:
                         timg = Image.open(tf)
                     except:
@@ -72,47 +59,47 @@ class SlideShow:
                 if not canAdd:
                     continue
                 self.files.append(tf)
-                if((inputFile != None) and (inputFile == f)):
-                    self.currentIndex = len(self.files) - 1
-        self.startCurrentIndex = self.currentIndex
+                if((input_file != None) and (input_file == f)):
+                    self.current_index = len(self.files) - 1
+        self.startcurrent_index = self.current_index
 
-    def hasFiles(self):
+    def has_files(self):
         return (self.files != None) and (len(self.files) > 0)
 
     def getCurrent(self):
-        if not self.hasFiles():
+        if not self.has_files():
             raise StopIteration
-        return self.files[self.currentIndex]
+        return self.files[self.current_index]
 
     def getExtra(self):
-        return '[%d / %d]  ' % (self.currentIndex + 1, len(self.files))
+        return '[%d / %d]  ' % (self.current_index + 1, len(self.files))
 
-    def moveNext(self):
-        if not self.hasFiles():
+    def move_next(self):
+        if not self.has_files():
             raise StopIteration
-        self.currentIndex += 1
-        if self.currentIndex >= len(self.files):
-            self.currentIndex = 0;
-        if (not config.loop) and (self.startCurrentIndex == self.currentIndex):
+        self.current_index += 1
+        if self.current_index >= len(self.files):
+            self.current_index = 0;
+        if (not config.loop) and (self.startcurrent_index == self.current_index):
             raise StopIteration
         return self.getCurrent()
 
-    def movePrevious(self):
-        if not self.hasFiles():
+    def move_previous(self):
+        if not self.has_files():
             raise StopIteration
-        self.currentIndex -= 1
-        if self.currentIndex < 0:
-            self.currentIndex = len(self.files) - 1
-        if (not config.loop) and (self.startCurrentIndex == self.currentIndex):
+        self.current_index -= 1
+        if self.current_index < 0:
+            self.current_index = len(self.files) - 1
+        if (not config.loop) and (self.startcurrent_index == self.current_index):
             raise StopIteration
         return self.getCurrent()
         
     def moveFirst(self, first):
-        if not self.hasFiles():
+        if not self.has_files():
             raise StopIteration
-        self.currentIndex = 0
+        self.current_index = 0
         if not first:
-            self.currentIndex = len(self.files) - 1
+            self.current_index = len(self.files) - 1
         return self.getCurrent()
 
 class Display:
@@ -167,7 +154,7 @@ class Display:
     
 class Application:
     def __init__(self, root):
-        self.autoSlideOn = False
+        self.auto_slide_on = False
         self.mstart = (-1, -1)
         self.slide = None
         self.root = root
@@ -176,66 +163,66 @@ class Application:
         self.root.bind('q', quit)
         self.root.bind('<Escape>', quit)
         self.root.bind('<Control-c>', quit)
-        self.root.bind('<space>', lambda e:  self.showNext(e, True))
-        self.root.bind('<Right>', lambda e: self.showNext(e, True))
-        self.root.bind('<Down>', lambda e: self.showNext(e, True))
-        self.root.bind('<Return>', lambda e: self.showNext(e, True))
-        self.root.bind('<Left>', lambda e: self.showNext(e, False))
-        self.root.bind('<Up>', lambda e: self.showNext(e, False))
-        self.root.bind('s', lambda e: self.autoSlide())
+        self.root.bind('<space>', lambda e:  self.show_next(e, True))
+        self.root.bind('<Right>', lambda e: self.show_next(e, True))
+        self.root.bind('<Down>', lambda e: self.show_next(e, True))
+        self.root.bind('<Return>', lambda e: self.show_next(e, True))
+        self.root.bind('<Left>', lambda e: self.show_next(e, False))
+        self.root.bind('<Up>', lambda e: self.show_next(e, False))
+        self.root.bind('s', lambda e: self.auto_slide())
         # bind function keys F1-F12
         for i in range(12):
             funtion_key_label = '<F%d>' % (i +1)
-            self.root.bind(funtion_key_label, lambda e: self.autoSlide())
+            self.root.bind(funtion_key_label, lambda e: self.auto_slide())
         
 
-    def run(self, inputPath):
+    def run(self, input_path):
         w, h = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
         self.root.geometry('%dx%d+0+0' % (w, h))
         self.root.attributes('-fullscreen', True)
 
-        self.inputPath = inputPath
-        self._initFiles(inputPath)
+        self.input_path = input_path
+        self._init_files(input_path)
         self.root.focus_set()
         self.root.focus_force()
         self.root.mainloop()
 
-    def _initFiles(self, inputPath):
-        self.slide = SlideShow(inputPath)
-        self.root.after(150, lambda: self.showCurrent())
+    def _init_files(self, input_path):
+        self.slide = SlideShow(input_path)
+        self.root.after(150, lambda: self.show_current())
 
-    def showNext(self, e, down):
+    def show_next(self, e, down):
         if self.slide is None:
             return
         try:
             if down:
-                self.slide.moveNext()
+                self.slide.move_next()
             else:
-                self.slide.movePrevious()
-            self.showCurrent()
+                self.slide.move_previous()
+            self.show_current()
         except StopIteration:
             quit(e)
 
-    def showCurrent(self):
+    def show_current(self):
         global config
         if self.slide is None:
             return
         self.display.setImage(self.slide.getCurrent(), self.slide.getExtra(), True)
-        if config.autoSlideAutoStart:
-            config.autoSlideAutoStart = False
-            self.root.after(config.autoSlideTime, lambda: self.autoSlide())
+        if config.auto_slide_auto_start:
+            config.auto_slide_auto_start = False
+            self.root.after(config.auto_slide_time, lambda: self.auto_slide())
 
-    def autoSlide(self):
-        self.autoSlideOn = True
-        self.showNext(None, True)
-        self.root.after(config.autoSlideTime, lambda: self.autoSlideNext())
+    def auto_slide(self):
+        self.auto_slide_on = True
+        self.show_next(None, True)
+        self.root.after(config.auto_slide_time, lambda: self.auto_slide_next())
 
-    def autoSlideNext(self):
-        self.showNext(None, True)
-        self.root.after(config.autoSlideTime, lambda: self.autoSlideNext())
+    def auto_slide_next(self):
+        self.show_next(None, True)
+        self.root.after(config.auto_slide_time, lambda: self.auto_slide_next())
 
-    def autoSlideStop(self):
-        self.autoSlideOn = False
+    def auto_slide_stop(self):
+        self.auto_slide_on = False
 
 
 def quit(e):
@@ -250,6 +237,6 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--slideshow', help='start slideshow', action='store_true')
     args = parser.parse_args()
     if args.slideshow:
-        config.autoSlideAutoStart = True
+        config.auto_slide_auto_start = True
     app = Application(root)
     app.run(args.dir)
