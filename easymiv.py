@@ -53,13 +53,13 @@ class SlideShow:
         for f in all_data:
             tf = os.path.join(self.input_dir, f)
             if os.path.isfile(tf):
-                canAdd = True
+                can_add = True
                 if config.detect_images:
                     try:
                         timg = Image.open(tf)
                     except:
-                        canAdd = False
-                if not canAdd:
+                        can_add = False
+                if not can_add:
                     continue
                 self.files.append(tf)
                 if((input_file != None) and (input_file == f)):
