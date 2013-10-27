@@ -27,25 +27,28 @@ from PIL.ImageTk import PhotoImage
 
 
 class Config:
+
     def __init__(self):
         self.detect_images = True
         self.loop = True
         self.auto_slide_time = 3000
         self.auto_slide_auto_start = False
-        
+
+
 class SlideShow:
+
     def __init__(self, input_path):
-        self.current_index = -1;
-        self.startcurrent_index = -1;
+        self.current_index = -1
+        self.startcurrent_index = -1
         self.input_path = input_path
         self.input_dir = self.input_path
         input_file = None
         if os.path.isfile(self.input_path):
-            self.input_dir,input_file = os.path.split(self.input_path)
+            self.input_dir, input_file = os.path.split(self.input_path)
         self.current_index = 0
         all_data = sorted(os.listdir(self.input_dir))
         if (all_data == None) or (len(all_data) <= 0):
-            return;
+            return
         self.files = []
         for f in all_data:
             tf = os.path.join(self.input_dir, f)
@@ -79,7 +82,7 @@ class SlideShow:
             raise StopIteration
         self.current_index += 1
         if self.current_index >= len(self.files):
-            self.current_index = 0;
+            self.current_index = 0
         if (not config.loop) and (self.startcurrent_index == self.current_index):
             raise StopIteration
         return self.getCurrent()
@@ -93,7 +96,7 @@ class SlideShow:
         if (not config.loop) and (self.startcurrent_index == self.current_index):
             raise StopIteration
         return self.getCurrent()
-        
+
     def moveFirst(self, first):
         if not self.has_files():
             raise StopIteration
@@ -102,7 +105,9 @@ class SlideShow:
             self.current_index = len(self.files) - 1
         return self.getCurrent()
 
+
 class Display:
+
     def __init__(self, root):
         self.root = root
         self.masterimage = None
@@ -110,7 +115,8 @@ class Display:
         self.imageId = -1
         self.textId = -1
         self.currentFile = None
-        self.display = Canvas(root, bg='black', borderwidth=0, highlightthickness=0)
+        self.display = Canvas(
+            root, bg='black', borderwidth=0, highlightthickness=0)
         self.display.pack(expand=YES, fill=BOTH)
 
     def hasValidImage(self):
@@ -119,8 +125,9 @@ class Display:
     def _zoomImage(self, img, w, h):
         originalWidth = img.size[0]
         r = min(float(w) / img.size[0], float(h) / img.size[1])
-        img = img.resize((int(img.size[0] * r), int(img.size[1] * r)), Image.BILINEAR)
-        currentZoom = int((float(img.size[0]) / originalWidth) * 100);
+        img = img.resize(
+            (int(img.size[0] * r), int(img.size[1] * r)), Image.BILINEAR)
+        currentZoom = int((float(img.size[0]) / originalWidth) * 100)
         text = '%s%%' % currentZoom
         return img, text
 
@@ -142,7 +149,8 @@ class Display:
         if self.imageId < 0:
             self.imageId = self.display.create_image(0, 0)
         self.display.coords(self.imageId, w // 2, h // 2)
-        self.display.itemconfig(self.imageId, image=self.photoimage, anchor=CENTER)
+        self.display.itemconfig(
+            self.imageId, image=self.photoimage, anchor=CENTER)
         self.hasImage = True
 
         # set text
@@ -151,8 +159,9 @@ class Display:
         self.display.itemconfig(self.textId, text=text, anchor=NW, fill='red')
         self.display.lift(self.textId)
 
-    
+
 class Application:
+
     def __init__(self, root):
         self.auto_slide_on = False
         self.mstart = (-1, -1)
@@ -172,9 +181,8 @@ class Application:
         self.root.bind('s', lambda e: self.auto_slide())
         # bind function keys F1-F12
         for i in range(12):
-            funtion_key_label = '<F%d>' % (i +1)
+            funtion_key_label = '<F%d>' % (i + 1)
             self.root.bind(funtion_key_label, lambda e: self.auto_slide())
-        
 
     def run(self, input_path):
         w, h = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
@@ -207,7 +215,8 @@ class Application:
         global config
         if self.slide is None:
             return
-        self.display.setImage(self.slide.getCurrent(), self.slide.getExtra(), True)
+        self.display.setImage(
+            self.slide.getCurrent(), self.slide.getExtra(), True)
         if config.auto_slide_auto_start:
             config.auto_slide_auto_start = False
             self.root.after(config.auto_slide_time, lambda: self.auto_slide())
@@ -234,7 +243,8 @@ if __name__ == '__main__':
     config = Config()
     parser = argparse.ArgumentParser()
     parser.add_argument('dir')
-    parser.add_argument('-s', '--slideshow', help='start slideshow', action='store_true')
+    parser.add_argument(
+        '-s', '--slideshow', help='start slideshow', action='store_true')
     args = parser.parse_args()
     if args.slideshow:
         config.auto_slide_auto_start = True
