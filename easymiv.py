@@ -97,7 +97,7 @@ class SlideShow:
             raise StopIteration
         return self.getCurrent()
 
-    def moveFirst(self, first):
+    def move_first(self, first):
         if not self.has_files():
             raise StopIteration
         self.current_index = 0
@@ -131,7 +131,7 @@ class Display:
         text = '%s%%' % currentZoom
         return img, text
 
-    def setImage(self, file, extra, reloadImage=True):
+    def set_image(self, file, extra, reloadImage=True):
         self.photoimage = None
         self.masterimage = None
         if file == None:
@@ -215,7 +215,7 @@ class Application:
         global config
         if self.slide is None:
             return
-        self.display.setImage(
+        self.display.set_image(
             self.slide.getCurrent(), self.slide.getExtra(), True)
         if config.auto_slide_auto_start:
             config.auto_slide_auto_start = False
