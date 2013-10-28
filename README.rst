@@ -26,21 +26,20 @@ Example::
 
 Keyboard Controls:
 
- * q : quit
- * <Escape> : quit
- * <Control-c> : quit
- * <space> : show next
- * <Right> : show next
- * <Down> : show next
- * <Return> : show next
- * <Left> : show previous
- * <Up> : show previous
- * s : slideshow
- * Function Keys F1-F12 : slideshow
+* q : quit
+* <Escape> : quit
+* <Control-c> : quit
+* <space> : show next
+* <Right> : show next
+* <Down> : show next
+* <Return> : show next
+* <Left> : show previous
+* <Up> : show previous
+* s : slideshow
+* Function Keys F1-F12 : slideshow
 
 ----
 
-EasyMIV was originally based on code from: Miv (Minimal Image Viewer)
-Miv 0.0.2, (c) 2012 http://madebits.com
+ * EasyMIV was originally based on code from: Miv (Minimal Image Viewer), Miv 0.0.2, (c) 2012 http://madebits.com
 
 ----
