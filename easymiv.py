@@ -104,7 +104,7 @@ class Display:
         self.photoimage = None
         self.image_id = -1
         self.text_id = -1
-        self.currentFile = None
+        self.current_file = None
         self.display = Canvas(
             root, bg='black', borderwidth=0, highlightthickness=0)
         self.display.pack(expand=YES, fill=BOTH)
@@ -126,7 +126,7 @@ class Display:
         self.masterimage = None
         if file is None:
             return
-        self.currentFile = file
+        self.current_file = file
         text = os.path.basename(file)
         text = extra + text
         if ((self.masterimage is None) or reload_image):
@@ -141,7 +141,7 @@ class Display:
         self.display.coords(self.image_id, w // 2, h // 2)
         self.display.itemconfig(
             self.image_id, image=self.photoimage, anchor=CENTER)
-        self.hasImage = True
+        self.has_image = True
 
         # set text
         if self.text_id < 0:
