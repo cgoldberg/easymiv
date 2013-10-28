@@ -132,9 +132,9 @@ class Display:
         if ((self.masterimage is None) or reload_image):
             self.masterimage = Image.open(file)
         w, h = self.display.winfo_width(), self.display.winfo_height()
-        img, zoomText = self._zoom_image(self.masterimage, w, h)
+        img, zoom_text = self._zoom_image(self.masterimage, w, h)
         size = '%sx%s' % self.masterimage.size
-        text += '  [%s]  %s' % (size, zoomText)
+        text += '  [%s]  %s' % (size, zoom_text)
         self.photoimage = PhotoImage(img)
         if self.image_id < 0:
             self.image_id = self.display.create_image(0, 0)
