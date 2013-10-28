@@ -15,7 +15,6 @@
 import argparse
 import os
 
-
 try:
     from Tkinter import *  # Python 2
 except ImportError:
@@ -26,7 +25,6 @@ from PIL.ImageTk import PhotoImage
 
 
 class Config:
-
     def __init__(self):
         self.detect_images = True
         self.auto_slide_time = 3000
