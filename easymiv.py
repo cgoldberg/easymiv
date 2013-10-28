@@ -161,9 +161,9 @@ class Application:
         self.root = root
         self.root.config(borderwidth=0, cursor='none')
         self.display = Display(root)
-        self.root.bind('q', quit)
-        self.root.bind('<Escape>', quit)
-        self.root.bind('<Control-c>', quit)
+        self.root.bind('q', lambda e: self.quit())
+        self.root.bind('<Escape>', lambda e: self.quit())
+        self.root.bind('<Control-c>', lambda e: self.quit())
         self.root.bind('<space>', lambda e: self.show_next(e, True))
         self.root.bind('<Right>', lambda e: self.show_next(e, True))
         self.root.bind('<Down>', lambda e: self.show_next(e, True))
@@ -194,14 +194,11 @@ class Application:
     def show_next(self, e, down):
         if self.slide is None:
             return
-        try:
-            if down:
-                self.slide.move_next()
-            else:
-                self.slide.move_previous()
-            self.show_current()
-        except StopIteration:
-            quit(e)
+        if down:
+            self.slide.move_next()
+        else:
+            self.slide.move_previous()
+        self.show_current()
 
     def show_current(self):
         global config
@@ -225,9 +222,9 @@ class Application:
     def auto_slide_stop(self):
         self.auto_slide_on = False
 
+    def quit(self):
+        self.root.destroy()
 
-def quit(e):
-    root.destroy()
 
 if __name__ == '__main__':
     global config
