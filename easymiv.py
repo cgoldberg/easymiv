@@ -69,12 +69,12 @@ class SlideShow:
     def has_files(self):
         return (self.files != None) and (len(self.files) > 0)
 
-    def getCurrent(self):
+    def get_current(self):
         if not self.has_files():
             raise StopIteration
         return self.files[self.current_index]
 
-    def getExtra(self):
+    def get_extra(self):
         return '[%d / %d]  ' % (self.current_index + 1, len(self.files))
 
     def move_next(self):
@@ -85,7 +85,7 @@ class SlideShow:
             self.current_index = 0
         if (not config.loop) and (self.startcurrent_index == self.current_index):
             raise StopIteration
-        return self.getCurrent()
+        return self.get_current()
 
     def move_previous(self):
         if not self.has_files():
@@ -95,7 +95,7 @@ class SlideShow:
             self.current_index = len(self.files) - 1
         if (not config.loop) and (self.startcurrent_index == self.current_index):
             raise StopIteration
-        return self.getCurrent()
+        return self.get_current()
 
     def move_first(self, first):
         if not self.has_files():
@@ -103,7 +103,7 @@ class SlideShow:
         self.current_index = 0
         if not first:
             self.current_index = len(self.files) - 1
-        return self.getCurrent()
+        return self.get_current()
 
 
 class Display:
@@ -216,7 +216,7 @@ class Application:
         if self.slide is None:
             return
         self.display.set_image(
-            self.slide.getCurrent(), self.slide.getExtra(), True)
+            self.slide.get_current(), self.slide.get_extra(), True)
         if config.auto_slide_auto_start:
             config.auto_slide_auto_start = False
             self.root.after(config.auto_slide_time, lambda: self.auto_slide())
