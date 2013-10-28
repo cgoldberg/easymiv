@@ -4,8 +4,8 @@ EasyMIV - easy minimal image viewer
 
 .. image:: https://raw.github.com/cgoldberg/easymiv/master/easymiv.png
 
- * Corey Goldberg, (c) 2013, (http://goldb.org)
- * License: GNU GPLv3
+* Corey Goldberg, (c) 2013, (http://goldb.org)
+* License: GNU GPLv3
 
 ------------------------------------------------
 full-screen image viewer and slideshow in Python
