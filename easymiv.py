@@ -14,8 +14,7 @@
 
 import argparse
 import os
-import re
-import sys
+
 
 try:
     from Tkinter import *  # Python 2
@@ -30,13 +29,11 @@ class Config:
 
     def __init__(self):
         self.detect_images = True
-        self.loop = True
         self.auto_slide_time = 3000
         self.auto_slide_auto_start = False
 
 
 class SlideShow:
-
     def __init__(self, input_path):
         self.current_index = -1
         self.startcurrent_index = -1
@@ -47,7 +44,7 @@ class SlideShow:
             self.input_dir, input_file = os.path.split(self.input_path)
         self.current_index = 0
         all_data = sorted(os.listdir(self.input_dir))
-        if (all_data == None) or (len(all_data) <= 0):
+        if ((all_data is None) or (len(all_data) <= 0)):
             return
         self.files = []
         for f in all_data:
@@ -56,18 +53,18 @@ class SlideShow:
                 can_add = True
                 if config.detect_images:
                     try:
-                        timg = Image.open(tf)
-                    except:
+                        Image.open(tf)
+                    except Exception:
                         can_add = False
                 if not can_add:
                     continue
                 self.files.append(tf)
-                if((input_file != None) and (input_file == f)):
+                if ((input_file is not None) and (input_file == f)):
                     self.current_index = len(self.files) - 1
         self.startcurrent_index = self.current_index
 
     def has_files(self):
-        return (self.files != None) and (len(self.files) > 0)
+        return ((self.files is not None) and (len(self.files) > 0))
 
     def get_current(self):
         if not self.has_files():
@@ -83,8 +80,6 @@ class SlideShow:
         self.current_index += 1
         if self.current_index >= len(self.files):
             self.current_index = 0
-        if (not config.loop) and (self.startcurrent_index == self.current_index):
-            raise StopIteration
         return self.get_current()
 
     def move_previous(self):
@@ -93,8 +88,6 @@ class SlideShow:
         self.current_index -= 1
         if self.current_index < 0:
             self.current_index = len(self.files) - 1
-        if (not config.loop) and (self.startcurrent_index == self.current_index):
-            raise StopIteration
         return self.get_current()
 
     def move_first(self, first):
@@ -107,57 +100,56 @@ class SlideShow:
 
 
 class Display:
-
     def __init__(self, root):
         self.root = root
         self.masterimage = None
         self.photoimage = None
-        self.imageId = -1
-        self.textId = -1
+        self.image_id = -1
+        self.text_id = -1
         self.currentFile = None
         self.display = Canvas(
             root, bg='black', borderwidth=0, highlightthickness=0)
         self.display.pack(expand=YES, fill=BOTH)
 
-    def hasValidImage(self):
+    def has_valid_image(self):
         return (self.photoimage is not None)
 
-    def _zoomImage(self, img, w, h):
-        originalWidth = img.size[0]
+    def _zoom_image(self, img, w, h):
+        original_width = img.size[0]
         r = min(float(w) / img.size[0], float(h) / img.size[1])
         img = img.resize(
             (int(img.size[0] * r), int(img.size[1] * r)), Image.BILINEAR)
-        currentZoom = int((float(img.size[0]) / originalWidth) * 100)
-        text = '%s%%' % currentZoom
+        current_zoom = int((float(img.size[0]) / original_width) * 100)
+        text = '%s%%' % current_zoom
         return img, text
 
-    def set_image(self, file, extra, reloadImage=True):
+    def set_image(self, file, extra, reload_image=True):
         self.photoimage = None
         self.masterimage = None
-        if file == None:
+        if file is None:
             return
         self.currentFile = file
         text = os.path.basename(file)
         text = extra + text
-        if (self.masterimage == None) or reloadImage:
+        if ((self.masterimage is None) or reload_image):
             self.masterimage = Image.open(file)
         w, h = self.display.winfo_width(), self.display.winfo_height()
-        img, zoomText = self._zoomImage(self.masterimage, w, h)
+        img, zoomText = self._zoom_image(self.masterimage, w, h)
         size = '%sx%s' % self.masterimage.size
         text += '  [%s]  %s' % (size, zoomText)
         self.photoimage = PhotoImage(img)
-        if self.imageId < 0:
-            self.imageId = self.display.create_image(0, 0)
-        self.display.coords(self.imageId, w // 2, h // 2)
+        if self.image_id < 0:
+            self.image_id = self.display.create_image(0, 0)
+        self.display.coords(self.image_id, w // 2, h // 2)
         self.display.itemconfig(
-            self.imageId, image=self.photoimage, anchor=CENTER)
+            self.image_id, image=self.photoimage, anchor=CENTER)
         self.hasImage = True
 
         # set text
-        if self.textId < 0:
-            self.textId = self.display.create_text(5, 5)
-        self.display.itemconfig(self.textId, text=text, anchor=NW, fill='red')
-        self.display.lift(self.textId)
+        if self.text_id < 0:
+            self.text_id = self.display.create_text(5, 5)
+        self.display.itemconfig(self.text_id, text=text, anchor=NW, fill='red')
+        self.display.lift(self.text_id)
 
 
 class Application:
@@ -172,14 +164,14 @@ class Application:
         self.root.bind('q', quit)
         self.root.bind('<Escape>', quit)
         self.root.bind('<Control-c>', quit)
-        self.root.bind('<space>', lambda e:  self.show_next(e, True))
+        self.root.bind('<space>', lambda e: self.show_next(e, True))
         self.root.bind('<Right>', lambda e: self.show_next(e, True))
         self.root.bind('<Down>', lambda e: self.show_next(e, True))
         self.root.bind('<Return>', lambda e: self.show_next(e, True))
         self.root.bind('<Left>', lambda e: self.show_next(e, False))
         self.root.bind('<Up>', lambda e: self.show_next(e, False))
         self.root.bind('s', lambda e: self.auto_slide())
-        # bind function keys F1-F12
+        # bind function keys: F1-F12
         for i in range(12):
             funtion_key_label = '<F%d>' % (i + 1)
             self.root.bind(funtion_key_label, lambda e: self.auto_slide())
