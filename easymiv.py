@@ -146,6 +146,7 @@ class Application:
             self.root.after(self.auto_slide_time, lambda: self.auto_slide())
 
     def auto_slide(self):
+        self.auto_slide_on = False
         self.show_next()
         self.root.after(self.auto_slide_time, lambda: self.auto_slide())
 
