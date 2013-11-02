@@ -28,18 +28,18 @@ Keyboard Controls:
 
 * Quit:
  * q
- * <Escape>
- * <Control-c>
+ * <escape>
+ * <control>-c
    
 * Show Next:
  * <space>
- * <Right>
- * <Down>
- * <Return>
+ * <right>
+ * <down>
+ * <return>
 
 * Show Previous:
- * <Left>
- * <Up>
+ * <left>
+ * <up>
 
 ----
 
