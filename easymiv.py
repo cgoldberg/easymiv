@@ -130,8 +130,7 @@ class Application:
         if not os.path.isdir(input_dir):
             sys.stderr.write('%r is not a directory\n' % input_dir)
             sys.exit(1)
-            
-        
+
         w = self.root.winfo_screenwidth()
         h = self.root.winfo_screenheight()
         self.root.geometry('%dx%d+0+0' % (w, h))
