@@ -26,20 +26,20 @@ Example::
 
 Keyboard Controls:
 
- * Quit:
-  * q
-  * <Escape>
-  * <Control-c>
+* Quit:
+ * q
+ * <Escape>
+ * <Control-c>
    
- * Show Next:
-  * <space>
-  * <Right>
-  * <Down>
-  * <Return> : show next
+* Show Next:
+ * <space>
+ * <Right>
+ * <Down>
+ * <Return> : show next
 
- * Show Previous:
-  * <Left>
-  * <Up>
+* Show Previous:
+ * <Left>
+ * <Up>
 
 ----
 
