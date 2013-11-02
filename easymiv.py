@@ -13,6 +13,7 @@
 
 
 import argparse
+import random
 import os
 
 try:
@@ -26,12 +27,22 @@ from PIL.ImageTk import PhotoImage
 
 class SlideShow:
 
-    def __init__(self, input_dir):
+    def __init__(self, input_dir, randomize=True):
         self.current_index = 0
         img_paths = []
         for root, dirs, files in os.walk(input_dir, topdown=True):
             for file in sorted(files):
-                img_paths.append(os.path.abspath(os.path.join(root, file)))
+                path = os.path.abspath(os.path.join(root, file))
+                try:
+                    Image.open(path)
+                    img_paths.append(path)
+                except IOError:
+                    pass
+        if not img_paths:
+            print 'no images found'
+            sys.exit()
+        if randomize:
+            random.shuffle(img_paths)
         self.files = img_paths
 
     def get_current(self):
@@ -100,32 +111,33 @@ class Application:
 
     def __init__(self, root, auto_slide_on=False, auto_slide_time=3000):
         self.root = root
-        self.auto_slide_on = False
+        self.auto_slide_on = auto_slide_on
         self.auto_slide_time = auto_slide_time
         self.root.config(borderwidth=0, cursor='none')
         self.root.bind('q', lambda e: self.quit())
         self.root.bind('<Escape>', lambda e: self.quit())
         self.root.bind('<Control-c>', lambda e: self.quit())
-        self.root.bind('<space>', lambda e: self.show_next())
-        self.root.bind('<Right>', lambda e: self.show_next())
-        self.root.bind('<Down>', lambda e: self.show_next())
-        self.root.bind('<Return>', lambda e: self.show_next())
-        self.root.bind('<Left>', lambda e: self.show_next(False))
-        self.root.bind('<Up>', lambda e: self.show_next(False))
-        self.root.bind('s', lambda e: self.auto_slide())
-        # bind function keys: F1-F12
-        for i in range(12):
-            funtion_key_label = '<F%d>' % (i + 1)
-            self.root.bind(funtion_key_label, lambda e: self.auto_slide())
+        if not self.auto_slide_on:
+            self.root.bind('<Right>', lambda e: self.show_next())
+            self.root.bind('<Down>', lambda e: self.show_next())
+            self.root.bind('<Left>', lambda e: self.show_next(False))
+            self.root.bind('<Up>', lambda e: self.show_next(False))
+            self.root.bind('<Return>', lambda e: self.show_next())
+            self.root.bind('<space>', lambda e: self.show_next())
         self.display = Display(self.root)
 
-    def run(self, input_dir):
+    def run(self, input_dir, randomize=True):
+        if not os.path.isdir(input_dir):
+            sys.stderr.write('%r is not a directory\n' % input_dir)
+            sys.exit(1)
+            
+        
         w = self.root.winfo_screenwidth()
         h = self.root.winfo_screenheight()
         self.root.geometry('%dx%d+0+0' % (w, h))
         self.root.attributes('-fullscreen', True)
 
-        self.slide = SlideShow(input_dir)
+        self.slides = SlideShow(input_dir, randomize)
         self.root.after(150, lambda: self.show_current())
 
         self.root.focus_set()
@@ -134,19 +146,18 @@ class Application:
 
     def show_next(self, forward=True):
         if forward:
-            self.slide.move_next()
+            self.slides.move_next()
         else:
-            self.slide.move_previous()
+            self.slides.move_previous()
         self.show_current()
 
     def show_current(self):
         self.display.set_image(
-            self.slide.get_current(), self.slide.get_extra())
+            self.slides.get_current(), self.slides.get_extra())
         if self.auto_slide_on:
             self.root.after(self.auto_slide_time, lambda: self.auto_slide())
 
     def auto_slide(self):
-        self.auto_slide_on = False
         self.show_next()
         self.root.after(self.auto_slide_time, lambda: self.auto_slide())
 
@@ -160,6 +171,8 @@ if __name__ == '__main__':
     parser.add_argument('dir')
     parser.add_argument(
         '-s', '--slideshow', help='start slideshow', action='store_true')
+    parser.add_argument(
+        '-r', '--random', help='random shuffle images', action='store_true')
     args = parser.parse_args()
     app = Application(root, args.slideshow, 3000)
-    app.run(args.dir)
+    app.run(args.dir, args.random)
