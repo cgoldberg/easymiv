@@ -13,10 +13,10 @@ full-screen image viewer and slideshow in Python
 
 Requirements:
 
- * Python 2.7+ or 3.2+
- * python-imaging (PIL/Pillow)
- * python-tk
- * python-imaging-tk
+* Python 2.7+ or 3.2+
+* python-imaging (PIL/Pillow)
+* python-tk
+* python-imaging-tk
 
 Example::
 
@@ -24,27 +24,25 @@ Example::
     $ cd easymiv
     $ ./easymiv.py /home/cgoldberg/images/
 
-----
-
 Keyboard Controls:
 
  * Quit:
-   * q
-   * <Escape>
-   * <Control-c>
+  * q
+  * <Escape>
+  * <Control-c>
    
  * Show Next:
-   * <space>
-   * <Right>
-   * <Down>
-   * <Return> : show next
+  * <space>
+  * <Right>
+  * <Down>
+  * <Return> : show next
 
  * Show Previous:
-   * <Left>
-   * <Up>
+  * <Left>
+  * <Up>
 
 ----
 
- * EasyMIV was originally based on code from: Miv (Minimal Image Viewer), Miv 0.0.2, (c) 2012 http://madebits.com
+EasyMIV was originally based on code from: Miv (Minimal Image Viewer), Miv 0.0.2, (c) 2012 http://madebits.com
 
 ----
