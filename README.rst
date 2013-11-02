@@ -11,20 +11,20 @@ EasyMIV - easy minimal image viewer
 full-screen image slideshow in Python
 -------------------------------------
 
-*Requirements*:
+**Requirements**:
 
 * Python 2.7+ or 3.2+
 * python-imaging (PIL/Pillow)
 * python-tk
 * python-imaging-tk
 
-*Example*::
+**Example**::
 
     $ git clone https://github.com/cgoldberg/easymiv.git
     $ cd easymiv
     $ ./easymiv.py /home/cgoldberg/images/
 
-*Keyboard Controls*:
+**Keyboard Controls**:
 
 * Quit:
  * q
