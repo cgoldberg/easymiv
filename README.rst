@@ -7,9 +7,9 @@ EasyMIV - easy minimal image viewer
 * Corey Goldberg, (c) 2013, (http://goldb.org)
 * License: GNU GPLv3
 
-------------------------------------------------
-full-screen image viewer and slideshow in Python
-------------------------------------------------
+-------------------------------------
+full-screen image slideshow in Python
+-------------------------------------
 
 Requirements:
 
@@ -35,7 +35,7 @@ Keyboard Controls:
  * <space>
  * <Right>
  * <Down>
- * <Return> : show next
+ * <Return>
 
 * Show Previous:
  * <Left>
