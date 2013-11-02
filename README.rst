@@ -43,6 +43,6 @@ Keyboard Controls:
 
 ----
 
-EasyMIV was originally based on code from: Miv (Minimal Image Viewer), Miv 0.0.2, (c) 2012 http://madebits.com
+EasyMIV was originally based on code from: Miv (Minimal Image Viewer) 0.0.2, (c) 2012 http://madebits.com
 
 ----
