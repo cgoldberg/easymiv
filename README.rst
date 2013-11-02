@@ -24,19 +24,24 @@ Example::
     $ cd easymiv
     $ ./easymiv.py /home/cgoldberg/images/
 
+----
+
 Keyboard Controls:
 
-* q : quit
-* <Escape> : quit
-* <Control-c> : quit
-* <space> : show next
-* <Right> : show next
-* <Down> : show next
-* <Return> : show next
-* <Left> : show previous
-* <Up> : show previous
-* s : slideshow
-* Function Keys F1-F12 : slideshow
+ * Quit:
+   * q
+   * <Escape>
+   * <Control-c>
+   
+ * Show Next:
+   * <space>
+   * <Right>
+   * <Down>
+   * <Return> : show next
+
+ * Show Previous:
+   * <Left>
+   * <Up>
 
 ----
 
