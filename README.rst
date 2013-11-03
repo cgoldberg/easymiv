@@ -2,7 +2,7 @@
 EasyMIV - easy minimal image viewer
 ===================================
 
-.. image:: https://raw.github.com/cgoldberg/easymiv/master/easymiv.png
+.. image:: easymiv.png
 
 * Corey Goldberg, (c) 2013, (http://goldb.org)
 * License: GNU GPLv3
@@ -20,6 +20,7 @@ full-screen image slideshow in Python
 
 **Command Line Help**::
 
+    $ ./easymiv.py -h
     usage: easymiv.py [-h] [-s] [-r] dir
 
     positional arguments:
