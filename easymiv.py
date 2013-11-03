@@ -39,7 +39,7 @@ class SlideShow:
                 except IOError:
                     pass
         if not img_paths:
-            print 'no images found'
+            print('no images found')
             sys.exit()
         if randomize:
             random.shuffle(img_paths)
