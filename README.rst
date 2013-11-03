@@ -18,12 +18,24 @@ full-screen image slideshow in Python
 * python-tk
 * python-imaging-tk
 
+**Command Line Help**::
+
+    usage: easymiv.py [-h] [-s] [-r] dir
+
+    positional arguments:
+      dir
+
+    optional arguments:
+      -h, --help       show this help message and exit
+      -s, --slideshow  slideshow mode
+      -r, --random     random shuffle images
+
 **Example**::
 
     $ git clone https://github.com/cgoldberg/easymiv.git
     $ cd easymiv
     $ ./easymiv.py /home/cgoldberg/images/
-
+ 
 **Keyboard Controls**:
 
 * Quit:

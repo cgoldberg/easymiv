@@ -169,7 +169,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('dir')
     parser.add_argument(
-        '-s', '--slideshow', help='start slideshow', action='store_true')
+        '-s', '--slideshow', help='slideshow mode', action='store_true')
     parser.add_argument(
         '-r', '--random', help='random shuffle images', action='store_true')
     args = parser.parse_args()
