@@ -24,7 +24,7 @@ full-screen image slideshow in Python
     usage: easymiv.py [-h] [-s] [-r] dir
 
     positional arguments:
-      dir
+      dir              directory of images
 
     optional arguments:
       -h, --help       show this help message and exit
@@ -57,5 +57,3 @@ full-screen image slideshow in Python
 ----
 
 EasyMIV was originally based on code from: Miv (Minimal Image Viewer) 0.0.2, (c) 2012 http://madebits.com
-
-----

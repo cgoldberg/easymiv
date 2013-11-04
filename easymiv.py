@@ -167,7 +167,7 @@ class Application:
 if __name__ == '__main__':
     root = Tk()
     parser = argparse.ArgumentParser()
-    parser.add_argument('dir')
+    parser.add_argument('dir', help='directory of images')
     parser.add_argument(
         '-s', '--slideshow', help='slideshow mode', action='store_true')
     parser.add_argument(
