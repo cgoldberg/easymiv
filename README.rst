@@ -13,8 +13,8 @@ full-screen image slideshow in Python
 **Requirements**:
 
 * Python 2.7+ or 3.3+
-* python-tk, python-imaging-tk
-* PIL/Pillow
+* Tkinter (python-tk, python-imaging-tk)
+* PIL/Pillow (python-imaging)
 
 install requirements on Debian/Ubuntu::
 
