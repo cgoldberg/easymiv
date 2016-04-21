@@ -2,8 +2,6 @@
 easymiv - easy minimal image viewer
 ===================================
 
-.. image:: easymiv.png
-
 * Corey Goldberg, (c) 2013, 2015
 * Dev/Source: https://github.com/cgoldberg/easymiv
 * License: GNU GPLv3
@@ -15,8 +13,8 @@ full-screen image slideshow in Python
 **Requirements**:
 
 * Python 2.7+ or 3.3+
-* python-tk, python-imaging-tk
-* PIL/Pillow
+* Tkinter (python-tk, python-imaging-tk)
+* PIL/Pillow (python-imaging)
 
 install requirements on Debian/Ubuntu::
 
