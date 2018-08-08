@@ -4,7 +4,7 @@
 
 * Sergio Perea, (c) 2018
 * A partir de un fork de un programa de Corey Goldberg, (c) 2013, 2015
-* Dev/Source: https://github.com/sperea/easymiv
+* Dev/Source: https://github.com/sperea/python-escaparate
 * License: GNU GPLv3
 
 
