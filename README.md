@@ -48,20 +48,20 @@ or, install PIL/Pillow from PyPI::
 
 **Keyboard Controls**:
 
-* Quit:
- * q
- * <escape>
- * <control>-c
+**Quit:**
+* q
+* escape
+* control-c
 
-* Show Next:
- * <space>
- * <right>
- * <down>
- * <return>
+**Show Next:**
+* space
+* right
+* down
+* return
 
-* Show Previous:
- * <left>
- * <up>
+**Show Previous:**
+* left
+* up
 
 ----
 
