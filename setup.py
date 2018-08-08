@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='easymiv',
+    name='python-showcase',
     version='0.1.0',
     author='Sergio Perea',
     author_email='contacto@sergioperea.net',
