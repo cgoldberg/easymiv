@@ -160,13 +160,11 @@ if __name__ == '__main__':
     root = Tk()
     parser = argparse.ArgumentParser()
     parser.add_argument('dir', help='directory of images')
-    parser.add_argument(
-        '-s', '--slideshow', help='slideshow mode', action='store_true')
-    parser.add_argument(
-        '-r', '--random', help='random shuffle images', action='store_true')
-
+    parser.add_argument('-s', '--slideshow', help='slideshow mode', action='store_true')
+    parser.add_argument('-r', '--random', help='random shuffle images', action='store_true')
     parser.add_argument('-t', '--time', help='time between images', type=int)
-
+    parser.add_argument('-d', '--transition', help='transition delay between images', type=int)
+    parser.add_argument('-m', '--transitionmode', help='transition mode', type=int)
     args = parser.parse_args()
 
     app = Application(root, args.slideshow, args.time)
