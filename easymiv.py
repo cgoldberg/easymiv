@@ -16,14 +16,12 @@ import argparse
 import random
 import os
 
-try:
-    from Tkinter import *  # Python 2
-except ImportError:
-    from tkinter import *  # Python 3
+from tkinter import *  # Python 3
 
 from PIL import Image
 from PIL.ImageTk import PhotoImage
 
+import time
 
 class SlideShow:
 
@@ -100,16 +98,11 @@ class Display:
         self.display.itemconfig(
             self.image_id, image=self.photoimage, anchor=CENTER)
 
-        # set text
-        if self.text_id is None:
-            self.text_id = self.display.create_text(5, 5)
-        self.display.itemconfig(self.text_id, text=text, anchor=NW, fill='red')
-        self.display.lift(self.text_id)
 
 
 class Application:
 
-    def __init__(self, root, auto_slide_on=False, auto_slide_time=3000):
+    def __init__(self, root, auto_slide_on=True, auto_slide_time=10):
         self.root = root
         self.auto_slide_on = auto_slide_on
         self.auto_slide_time = auto_slide_time
@@ -172,6 +165,10 @@ if __name__ == '__main__':
         '-s', '--slideshow', help='slideshow mode', action='store_true')
     parser.add_argument(
         '-r', '--random', help='random shuffle images', action='store_true')
+
+    parser.add_argument('-t', '--time', help='time between images', type=int)
+
     args = parser.parse_args()
-    app = Application(root, args.slideshow, 3000)
-    app.run(args.dir, args.random)
+
+    app = Application(root, args.slideshow, args.time)
+    app.run(args.dir)
