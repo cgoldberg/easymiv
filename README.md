@@ -3,7 +3,6 @@
 
 
 * Sergio Perea, (c) 2018
-* A partir de un fork de un programa de Corey Goldberg, (c) 2013, 2015
 * Dev/Source: https://github.com/sperea/python-escaparate
 * License: GNU GPLv3
 
@@ -70,5 +69,7 @@ or, install PIL/Pillow from PyPI::
 
 ----
 
-EasyMIV was originally forked from: Miv (Minimal Image Viewer) 0.0.2, (c) 2012 madebits
+python-escaparate was originally forked from: https://github.com/cgoldberg/easymiv
+
+
 
