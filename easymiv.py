@@ -25,7 +25,7 @@ import time
 
 class SlideShow:
 
-    def __init__(self, input_dir, randomize=True):
+    def __init__(self, input_dir):
         self.current_index = 0
         img_paths = []
         for root, dirs, files in os.walk(input_dir, topdown=True):
@@ -39,8 +39,7 @@ class SlideShow:
         if not img_paths:
             print('no images found')
             sys.exit()
-        if randomize:
-            random.shuffle(img_paths)
+        print (img_paths)
         self.files = img_paths
 
     def get_current(self):
@@ -119,7 +118,7 @@ class Application:
             self.root.bind('<space>', lambda e: self.show_next())
         self.display = Display(self.root)
 
-    def run(self, input_dir, randomize=True):
+    def run(self, input_dir):
         if not os.path.isdir(input_dir):
             sys.stderr.write('%r is not a directory\n' % input_dir)
             sys.exit(1)
@@ -129,7 +128,7 @@ class Application:
         self.root.geometry('%dx%d+0+0' % (w, h))
         self.root.attributes('-fullscreen', True)
 
-        self.slides = SlideShow(input_dir, randomize)
+        self.slides = SlideShow(input_dir)
         self.root.after(150, lambda: self.show_current())
 
         self.root.focus_set()
@@ -147,11 +146,11 @@ class Application:
         self.display.set_image(
             self.slides.get_current(), self.slides.get_extra())
         if self.auto_slide_on:
-            self.root.after(self.auto_slide_time, lambda: self.auto_slide())
+            self.root.after(self.auto_slide_time, lambda: self.show_next())
 
     def auto_slide(self):
         self.show_next()
-        self.root.after(self.auto_slide_time, lambda: self.auto_slide())
+        self.root.after(self.auto_slide_time, lambda: self.show_current())
 
     def quit(self):
         self.root.destroy()
