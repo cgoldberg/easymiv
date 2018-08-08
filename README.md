@@ -8,10 +8,15 @@
 * License: GNU GPLv3
 
 
-python-escaparate  is an automatic playback image viewer developed with Python + Tk
-This script is very useful to use in a RaspberryPi connected to the TV of a showcase.
+python-escaparate is an automatic playback image viewer developed with Python3 + Tk.
+
+This script is very useful to play looping slideshows on a TV with a RaspberryPi connected. 
+
 We can control the display time between photos.
 
+**Example**
+
+./python-escaparate.py -s -t 10000 /home/sergio/images
 
 **Requirements**:
 
