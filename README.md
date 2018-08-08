@@ -1,5 +1,5 @@
 
-# python-escaparate
+# python-showcase
 
 
 * Sergio Perea, (c) 2018
@@ -7,7 +7,7 @@
 * License: GNU GPLv3
 
 
-python-escaparate is an automatic playback image viewer developed with Python3 + Tk.
+python-showcase is an automatic playback image viewer developed with Python3 + Tk.
 
 This script is very useful to play looping slideshows on a TV with a RaspberryPi connected. 
 
