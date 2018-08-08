@@ -1,17 +1,17 @@
-===================================
-python-escaparate
-===================================
+
+# python-escaparate
+
 
 * Sergio Perea, (c) 2018
 * A partir de un fork de un programa de Corey Goldberg, (c) 2013, 2015
 * Dev/Source: https://github.com/sperea/easymiv
 * License: GNU GPLv3
 
--------------------------------------
+
 python-escaparate  is an automatic playback image viewer developed with Python + Tk
 This script is very useful to use in a RaspberryPi connected to the TV of a showcase.
 We can control the display time between photos.
--------------------------------------
+
 
 **Requirements**:
 
