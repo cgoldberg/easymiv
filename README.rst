@@ -1,20 +1,23 @@
 ===================================
-easymiv - easy minimal image viewer
+python-escaparate
 ===================================
 
-* Corey Goldberg, (c) 2013, 2015
-* Dev/Source: https://github.com/cgoldberg/easymiv
+* Sergio Perea, (c) 2018
+* A partir de un fork de un programa de Corey Goldberg, (c) 2013, 2015
+* Dev/Source: https://github.com/sperea/easymiv
 * License: GNU GPLv3
 
 -------------------------------------
-full-screen image slideshow in Python
+python-escaparate  is an automatic playback image viewer developed with Python + Tk
+This script is very useful to use in a RaspberryPi connected to the TV of a showcase.
+We can control the display time between photos.
 -------------------------------------
 
 **Requirements**:
 
-* Python 2.7+ or 3.3+
+* Python 3.6+
 * Tkinter (python-tk, python-imaging-tk)
-* PIL/Pillow (python-imaging)
+* Pillow (python-imaging)
 
 install requirements on Debian/Ubuntu::
 
@@ -40,13 +43,8 @@ or, install PIL/Pillow from PyPI::
     optional arguments:
       -h, --help       show this help message and exit
       -s, --slideshow  slideshow mode
-      -r, --random     random shuffle images
-
-**Example**::
-
-    $ git clone https://github.com/cgoldberg/easymiv.git
-    $ cd easymiv
-    $ easymiv.py /home/cgoldberg/images/
+      -t, --time     time between photos
+      
 
 **Keyboard Controls**:
 
