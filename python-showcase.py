@@ -80,12 +80,29 @@ class Display:
         zoom_text = '%s%%' % current_zoom
         return img, zoom_text
 
+
+    def fade_away(self):
+        alpha = self.parent.attributes("-alpha")
+        if alpha > 0:
+            alpha -= .1
+            self.parent.attributes("-alpha", alpha)
+            self.after(10, self.fade_away)
+        else:
+            self.parent.destroy()
+
     def set_image(self, file, extra):
         self.current_file = file
         w = self.display.winfo_width()
         h = self.display.winfo_height()
+
+
         self.masterimage = Image.open(file)
+
+
         img, zoom_text = self._zoom_image(self.masterimage, w, h)
+
+
+
         self.photoimage = PhotoImage(img)
         size = '%sx%s' % self.masterimage.size
         text = '[%s]  %s  (%s)  %s' % (
@@ -93,9 +110,13 @@ class Display:
 
         if self.image_id is None:
             self.image_id = self.display.create_image(0, 0)
+
         self.display.coords(self.image_id, w // 2, h // 2)
         self.display.itemconfig(
             self.image_id, image=self.photoimage, anchor=CENTER)
+
+    def get_image(self):
+        return self.current_file
 
 
 
@@ -143,8 +164,12 @@ class Application:
         self.show_current()
 
     def show_current(self):
-        self.display.set_image(
-            self.slides.get_current(), self.slides.get_extra())
+
+
+
+
+        self.display.set_image(self.slides.get_current(), self.slides.get_extra())
+
         if self.auto_slide_on:
             self.root.after(self.auto_slide_time, lambda: self.show_next())
 
