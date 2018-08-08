@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 #
-#  EasyMiv - a fork of Miv
-#  Corey Goldberg, (c) 2013, (http://goldb.org)
+#  (c) Sergio Perea 2018
+#  Python-Showcase - a fork of EasyMiv
 #  License: GNU GPLv3
 #
 #  original was based on code from: Miv - Minimal Image Viewer, version 0.0.2
 #  (c) 2012, http://madebits.com
 #
 #  Requirements:
-#   * Python 2.7+ or 3.2+
+#   * Python 3.2+
 #   * python-imaging-tk
 
 
