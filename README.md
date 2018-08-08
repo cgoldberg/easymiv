@@ -15,7 +15,7 @@ We can control the display time between photos.
 
 **Example**
 
-    $ ./python-escaparate.py -s -t 10000 /home/sergio/images
+    $ ./python-showcase.py -s -t 10000 /home/sergio/images
 
 **Requirements**:
 
