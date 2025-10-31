@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "easymiv"
+version = "0.2.0"
+description = "Easy minimal image viewer - full-screen image slideshow"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+authors = [{name = "Corey Goldberg"}]
+maintainers = [{name = "Corey Goldberg"}]
+readme = "README.md"
+requires-python = ">= 3.6"
+keywords = ["image", "viewer", "slideshow"]
+classifiers = [
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
+]
+dependencies = ["pillow"]
+
+[project.urls]
+homepage = "https://github.com/cgoldberg/easymiv"
+source = "https://github.com/cgoldberg/easymiv"
+download = "https://pypi.org/project/easymiv"
+
+[project.scripts]
+easymiv = "easymiv:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
