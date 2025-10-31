@@ -1,27 +1,20 @@
 #!/usr/bin/env python
 #
 #  EasyMiv - a fork of Miv
-#  Corey Goldberg, (c) 2013, (http://goldb.org)
+#  Copyright (c) 2013-2025 Corey Goldberg (https://github.com/cgoldberg)
 #  License: GNU GPLv3
 #
-#  original was based on code from: Miv - Minimal Image Viewer, version 0.0.2
-#  (c) 2012, http://madebits.com
-#
-#  Requirements:
-#   * Python 2.7+ or 3.2+
-#   * python-imaging-tk
+#  based on code from:
+#    Miv - Minimal Image Viewer, version 0.0.2 (c) 2012, http://madebits.com
 
 
 import argparse
-import random
 import os
+import random
+import sys
+from tkinter import *
 
-try:
-    from Tkinter import *  # Python 2
-except ImportError:
-    from tkinter import *  # Python 3
-
-from PIL import Image
+from PIL import Image, ImageOps
 from PIL.ImageTk import PhotoImage
 
 
@@ -37,10 +30,10 @@ class SlideShow:
                     Image.open(path)
                     img_paths.append(path)
                 except IOError:
+                    # ignore non-image files
                     pass
         if not img_paths:
-            print('no images found')
-            sys.exit()
+            sys.exit("fatal: no images found")
         if randomize:
             random.shuffle(img_paths)
         self.files = img_paths
@@ -49,7 +42,7 @@ class SlideShow:
         return self.files[self.current_index]
 
     def get_extra(self):
-        return '%d / %d' % (self.current_index + 1, len(self.files))
+        return f"{self.current_index + 1} / {len(self.files)}"
 
     def move_next(self):
         self.current_index += 1
@@ -70,40 +63,36 @@ class Display:
         self.root = root
         self.image_id = None
         self.text_id = None
-        self.display = Canvas(
-            root, bg='black', borderwidth=0, highlightthickness=0)
+        self.display = Canvas(root, bg="black", borderwidth=0, highlightthickness=0)
         self.display.pack(expand=YES, fill=BOTH)
 
     def _zoom_image(self, img, w, h):
         original_width = img.size[0]
         r = min(float(w) / img.size[0], float(h) / img.size[1])
-        img = img.resize(
-            (int(img.size[0] * r), int(img.size[1] * r)), Image.BILINEAR)
+        img = img.resize((int(img.size[0] * r), int(img.size[1] * r)), Image.BILINEAR)
         current_zoom = int((float(img.size[0]) / original_width) * 100)
-        zoom_text = '%s%%' % current_zoom
+        zoom_text = f"{current_zoom}%"
         return img, zoom_text
 
     def set_image(self, file, extra):
         self.current_file = file
         w = self.display.winfo_width()
         h = self.display.winfo_height()
-        self.masterimage = Image.open(file)
+        masterimage = Image.open(file)
+        self.masterimage = ImageOps.exif_transpose(masterimage) # use EXIF orientation
         img, zoom_text = self._zoom_image(self.masterimage, w, h)
         self.photoimage = PhotoImage(img)
-        size = '%sx%s' % self.masterimage.size
-        text = '[%s]  %s  (%s)  %s' % (
-            extra, os.path.basename(file), size, zoom_text)
-
+        img_w, img_h = self.masterimage.size
+        size = f"{img_w}x{img_h}"
+        text = f"[{extra}]  {os.path.basename(file)}  ({size})  {zoom_text}"
         if self.image_id is None:
             self.image_id = self.display.create_image(0, 0)
         self.display.coords(self.image_id, w // 2, h // 2)
-        self.display.itemconfig(
-            self.image_id, image=self.photoimage, anchor=CENTER)
-
+        self.display.itemconfig(self.image_id, image=self.photoimage, anchor=CENTER)
         # set text
         if self.text_id is None:
             self.text_id = self.display.create_text(5, 5)
-        self.display.itemconfig(self.text_id, text=text, anchor=NW, fill='red')
+        self.display.itemconfig(self.text_id, text=text, anchor=NW, fill="red")
         self.display.lift(self.text_id)
 
 
@@ -113,28 +102,27 @@ class Application:
         self.root = root
         self.auto_slide_on = auto_slide_on
         self.auto_slide_time = auto_slide_time
-        self.root.config(borderwidth=0, cursor='none')
-        self.root.bind('q', lambda e: self.quit())
-        self.root.bind('<Escape>', lambda e: self.quit())
-        self.root.bind('<Control-c>', lambda e: self.quit())
+        self.root.config(borderwidth=0, cursor="none")
+        self.root.bind("q", lambda e: self.quit())
+        self.root.bind("<Escape>", lambda e: self.quit())
+        self.root.bind("<Control-c>", lambda e: self.quit())
         if not self.auto_slide_on:
-            self.root.bind('<Right>', lambda e: self.show_next())
-            self.root.bind('<Down>', lambda e: self.show_next())
-            self.root.bind('<Left>', lambda e: self.show_next(False))
-            self.root.bind('<Up>', lambda e: self.show_next(False))
-            self.root.bind('<Return>', lambda e: self.show_next())
-            self.root.bind('<space>', lambda e: self.show_next())
+            self.root.bind("<Right>", lambda e: self.show_next())
+            self.root.bind("<Down>", lambda e: self.show_next())
+            self.root.bind("<Left>", lambda e: self.show_next(False))
+            self.root.bind("<Up>", lambda e: self.show_next(False))
+            self.root.bind("<Return>", lambda e: self.show_next())
+            self.root.bind("<space>", lambda e: self.show_next())
         self.display = Display(self.root)
 
     def run(self, input_dir, randomize=True):
         if not os.path.isdir(input_dir):
-            sys.stderr.write('%r is not a directory\n' % input_dir)
-            sys.exit(1)
+            sys.exit(f"{input_dir} is not a directory")
 
         w = self.root.winfo_screenwidth()
         h = self.root.winfo_screenheight()
-        self.root.geometry('%dx%d+0+0' % (w, h))
-        self.root.attributes('-fullscreen', True)
+        self.root.geometry(f"{w}x{h}+0+0")
+        self.root.attributes("-fullscreen", True)
 
         self.slides = SlideShow(input_dir, randomize)
         self.root.after(150, lambda: self.show_current())
@@ -151,8 +139,7 @@ class Application:
         self.show_current()
 
     def show_current(self):
-        self.display.set_image(
-            self.slides.get_current(), self.slides.get_extra())
+        self.display.set_image(self.slides.get_current(), self.slides.get_extra())
         if self.auto_slide_on:
             self.root.after(self.auto_slide_time, lambda: self.auto_slide())
 
@@ -164,14 +151,34 @@ class Application:
         self.root.destroy()
 
 
-if __name__ == '__main__':
+def main():
     root = Tk()
     parser = argparse.ArgumentParser()
-    parser.add_argument('dir', help='directory of images')
     parser.add_argument(
-        '-s', '--slideshow', help='slideshow mode', action='store_true')
+        "dir",
+        nargs="?",
+        default=os.getcwd(),
+        help="directory of images (scans recursive)",
+    )
     parser.add_argument(
-        '-r', '--random', help='random shuffle images', action='store_true')
+        "-s",
+        "--slideshow",
+        action="store_true",
+        help="slideshow mode",
+    )
+    parser.add_argument(
+        "-r",
+        "--random",
+        action="store_true",
+        help="random shuffle images",
+    )
     args = parser.parse_args()
-    app = Application(root, args.slideshow, 3000)
-    app.run(args.dir, args.random)
+    try:
+        app = Application(root, args.slideshow, 3000)
+        app.run(args.dir, args.random)
+    except KeyboardInterrupt:
+        sys.exit()
+
+
+if __name__ == "__main__":
+    main()
