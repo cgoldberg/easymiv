@@ -41,19 +41,19 @@ options:
 #### Keyboard Controls
 
 - Quit:
- - q
- - <escape>
- - <control>-c
+  - `q`
+  - `<escape>`
+  - `<control>-c`
 
 - Show Next:
- - <space>
- - <right>
- - <down>
- - <return>
+  - `<space>`
+  - `<right>`
+  - `<down>`
+  - `<return>`
 
 - Show Previous:
- - <left>
- - <up>
+  - `<left>`
+  - `<up>`
 
 ----
 

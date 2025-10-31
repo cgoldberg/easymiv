@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "easymiv"
-version = "0.2.1dev0"
+version = "0.2.1"
 description = "Easy minimal image viewer - full-screen image slideshow"
 license = "GPL-3.0-only"
 license-files = ["LICENSE"]
