@@ -1,6 +1,6 @@
 # EasyMIV
 
-### easy minimal image viewer - full-screen image viewer and slideshow in Python
+### Easy minimal image viewer (full-screen image slideshow)
 
 ---
 
