@@ -79,7 +79,7 @@ class Display:
         w = self.display.winfo_width()
         h = self.display.winfo_height()
         masterimage = Image.open(file)
-        self.masterimage = ImageOps.exif_transpose(masterimage) # use EXIF orientation
+        self.masterimage = ImageOps.exif_transpose(masterimage)  # use EXIF orientation
         img, zoom_text = self._zoom_image(self.masterimage, w, h)
         self.photoimage = PhotoImage(img)
         img_w, img_h = self.masterimage.size
