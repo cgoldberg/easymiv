@@ -29,7 +29,7 @@ class SlideShow:
                 try:
                     Image.open(path)
                     img_paths.append(path)
-                except IOError:
+                except OSError:
                     # ignore non-image files
                     pass
         if not img_paths:
