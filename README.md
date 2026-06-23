@@ -63,4 +63,3 @@ EasyMIV was originally forked from: Miv (Minimal Image Viewer) 0.0.2, (c) 2012 m
 [github-repo]: https://github.com/cgoldberg/easymiv
 [pypi-easymiv]: https://pypi.org/project/easymiv
 [gpl-license]: https://raw.githubusercontent.com/cgoldberg/easymiv/refs/heads/master/LICENSE
-
