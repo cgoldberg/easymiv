@@ -2,8 +2,6 @@
 
 ### Easy minimal image viewer (full-screen image slideshow)
 
----
-
 - Copyright (c) 2013-2026 [Corey Goldberg][github-home]
 - Development: [GitHub][github-repo]
 - Download/Install: [PyPI][pypi-easymiv]
@@ -11,7 +9,7 @@
 
 ----
 
-## Status
+### Status
 
 <table>
   <tr>
@@ -42,13 +40,15 @@
 
 ----
 
-#### Requirements
+### Requirements
 
 - Python or 3.11+
 - Tkinter
 - PIL/Pillow
 
-#### Installation
+----
+
+### Installation
 
 ```
 pip install easymiv
@@ -56,7 +56,7 @@ pip install easymiv
 
 ----
 
-#### Command Line Usage
+### Command Line Usage
 
 ```
 usage: easymiv [-h] [-s] [-r] [dir]
@@ -72,7 +72,7 @@ options:
 
 ----
 
-#### Keyboard Controls
+### Keyboard Controls
 
 - Quit:
   - `q`
@@ -91,7 +91,7 @@ options:
 
 ----
 
-EasyMIV was originally forked from: Miv (Minimal Image Viewer) 0.0.2, (c) 2012 madebits
+*EasyMIV was originally forked from: Miv (Minimal Image Viewer) 0.0.2, (c) 2012 madebits*
 
 [github-home]: https://github.com/cgoldberg
 [github-repo]: https://github.com/cgoldberg/easymiv
