@@ -11,22 +11,16 @@ license-files = ["LICENSE"]
 authors = [{name = "Corey Goldberg"}]
 maintainers = [{name = "Corey Goldberg"}]
 readme = "README.md"
-requires-python = ">= 3.6"
-keywords = ["image", "viewer", "slideshow"]
+requires-python = ">= 3.11"
+keywords = ["image", "photo", "picture", "viewer", "slideshow", "tk"]
 classifiers = [
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
-        "Programming Language :: Python :: 3.11",
-        "Programming Language :: Python :: 3.12",
-        "Programming Language :: Python :: 3.13",
-        "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
 ]
-dependencies = ["pillow"]
+dependencies = ["pillow==13.0.0"]
 
 [project.urls]
 homepage = "https://github.com/cgoldberg/easymiv"
@@ -36,5 +30,41 @@ download = "https://pypi.org/project/easymiv"
 [project.scripts]
 easymiv = "easymiv:main"
 
+[dependency-groups]
+dev = [
+    "tox",
+]
+lint = [
+    "ruff",
+]
+test = [
+    "pytest",
+]
+validate = [
+    "validate-pyproject[all]",
+]
+
 [tool.setuptools]
 package-dir = {"" = "src"}
+
+[tool.pytest]
+addopts = ["-v"]
+filterwarnings = ["default"]
+tmp_path_retention_policy = "none"
+
+[tool.ruff]
+line-length = 88
+respect-gitignore = true
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["ANN", "COM812", "D", "FBT", "PLW0108",]
+fixable = ["ALL"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/test_*.py" = ["INP001", "S101", "SLF001", "PLR2004"]
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 88

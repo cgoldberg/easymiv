@@ -1,0 +1,48 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python-version: "3.11"
+            toxenv: py311
+          - os: ubuntu-latest
+            python-version: "3.15"
+            toxenv: py315
+          - os: windows-latest
+            python-version: "3.11"
+            toxenv: py311
+          - os: windows-latest
+            python-version: "3.15"
+            toxenv: py315
+    steps:
+      - uses: actions/checkout@v7
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          allow-prereleases: true
+          check-latest: true
+      - name: Install dependencies
+        run: pip install tox
+      - name: Validate project configuration
+        if: matrix.os == 'ubuntu-latest'
+        run: tox
+        env:
+          TOXENV: validate
+      - name: Run linting and formatting
+        if: matrix.os == 'ubuntu-latest'
+        run: tox
+        env:
+          TOXENV: lint
+      - name: Run tests
+        run: tox
+        env:
+          TOXENV: ${{ matrix.toxenv }}
