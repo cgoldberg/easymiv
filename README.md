@@ -1,6 +1,6 @@
 # EasyMIV
 
-### Easy minimal image viewer (full-screen image slideshow)
+### Easy minimal image viewer (full-screen slideshow)
 
 - Copyright (c) 2013-2026 [Corey Goldberg][github-home]
 - Development: [GitHub][github-repo]

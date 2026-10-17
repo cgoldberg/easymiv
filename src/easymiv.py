@@ -1,7 +1,7 @@
 # Copyright (c) 2013-2026 Corey Goldberg
 # SPDX-License-Identifier: GPL-3.0-only
 #
-#  EasyMIV - Easy minimal image viewer (full-screen image slideshow)
+#  EasyMIV - Easy minimal image viewer (full-screen slideshow)
 
 
 import argparse
