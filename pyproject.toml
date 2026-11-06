@@ -31,17 +31,14 @@ download = "https://pypi.org/project/easymiv"
 easymiv = "easymiv:main"
 
 [dependency-groups]
-dev = [
-    "tox",
-]
 lint = [
-    "ruff",
+    "ruff==0.17.4",
 ]
 test = [
-    "pytest",
+    "pytest==9.2.0",
 ]
 validate = [
-    "validate-pyproject[all]",
+    "validate-pyproject[all]==0.27",
 ]
 
 [tool.setuptools]

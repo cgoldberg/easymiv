@@ -1,4 +1,4 @@
-name: Tests
+name: tests
 
 on:
   push:
@@ -29,7 +29,8 @@ jobs:
             python-version: "3.15"
             toxenv: py315
     steps:
-      - uses: actions/checkout@v7
+      - name: Checkout repo
+        uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v7
         with:
@@ -37,14 +38,12 @@ jobs:
           allow-prereleases: true
           check-latest: true
       - name: Install dependencies
-        run: pip install tox
+        run: python -m pip install --upgrade pip tox
       - name: Validate project configuration
-        if: matrix.os == 'ubuntu-latest'
         run: tox
         env:
           TOXENV: validate
       - name: Run linting and formatting
-        if: matrix.os == 'ubuntu-latest'
         run: tox
         env:
           TOXENV: lint

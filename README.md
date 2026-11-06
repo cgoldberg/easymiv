@@ -42,8 +42,7 @@
 
 ### Requirements
 
-- Python or 3.11+
-- Tkinter
+- Python 3.11+ with Tkinter
 - PIL/Pillow
 
 ----
@@ -90,8 +89,6 @@ options:
   - `<up>`
 
 ----
-
-*EasyMIV was originally forked from: Miv (Minimal Image Viewer) 0.0.2, (c) 2012 madebits*
 
 [github-home]: https://github.com/cgoldberg
 [github-repo]: https://github.com/cgoldberg/easymiv
